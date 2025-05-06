@@ -5,14 +5,19 @@ describe ('Validacion de Login', ()=>{
        
     })
     it("verificar url e ingresar de manera exitosa", () => {
-        cy.login('standard_user','secret_sauce') 
+        cy.get('#user-name').type(Cypress.env('USERNAME'))
+        cy.get('#password').type(Cypress.env('PASSWORD'))
+        cy.get("#login-button").click();
         cy.get('[data-test="title"]').should("contain.text","Products")
        
     })
 
     it("verificar url e ingresar de manerra fallida", () => {
         cy.url().should('not.include', '/inventory.html');
-        cy.login('standard','secretuce') 
+        cy.get('#user-name').type(Cypress.env('USERNAMES'))
+        cy.get('#password').type(Cypress.env('PASSWORDS'))
+        cy.get("#login-button").click();
+    
         cy.get('[data-test="error"]').should("contain.text","Epic sadface: Username and password do not match any user in this service")
        
     })
@@ -22,8 +27,8 @@ describe ('Validacion de Login', ()=>{
 describe ('Verificacion del flujo de compra', ()=>{   
     beforeEach(()=>{
         cy.visit("/")
-        cy.get('#user-name').type('standard_user');
-        cy.get('#password').type('secret_sauce');
+        cy.get('#user-name').type(Cypress.env('USERNAME'))
+        cy.get('#password').type(Cypress.env('PASSWORD'))
         cy.get('#login-button').click();
         cy.url().should('include', '/inventory.html')
     }) 

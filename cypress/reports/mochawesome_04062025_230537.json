@@ -1,0 +1,185 @@
+{
+  "stats": {
+    "suites": 2,
+    "tests": 4,
+    "passes": 4,
+    "pending": 0,
+    "failures": 0,
+    "start": "2025-04-07T04:05:26.703Z",
+    "end": "2025-04-07T04:05:37.308Z",
+    "duration": 10605,
+    "testsRegistered": 4,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "8c202b01-d852-43e0-ba41-66af1ef0e4f5",
+      "title": "",
+      "fullFile": "cypress\\e2e\\1-getting-started\\prueba.cy.js",
+      "file": "cypress\\e2e\\1-getting-started\\prueba.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "122794e3-048d-4d8e-80bb-c1e6c2960cfb",
+          "title": "Validacion de Login",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "verificar url e ingresar de manera exitosa",
+              "fullTitle": "Validacion de Login verificar url e ingresar de manera exitosa",
+              "timedOut": null,
+              "duration": 3712,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.login('standard_user', 'secret_sauce');\ncy.get('[data-test=\"title\"]').should(\"contain.text\", \"Products\");",
+              "err": {},
+              "uuid": "41b8c583-ce0a-47a1-9f66-d50dd65ac437",
+              "parentUUID": "122794e3-048d-4d8e-80bb-c1e6c2960cfb",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "verificar url e ingresar de manerra fallida",
+              "fullTitle": "Validacion de Login verificar url e ingresar de manerra fallida",
+              "timedOut": null,
+              "duration": 1925,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.url().should('not.include', '/inventory.html');\ncy.login('standard', 'secretuce');\ncy.get('[data-test=\"error\"]').should(\"contain.text\", \"Epic sadface: Username and password do not match any user in this service\");",
+              "err": {},
+              "uuid": "d0c2056d-ba62-4657-b37d-7d8cf32bf06c",
+              "parentUUID": "122794e3-048d-4d8e-80bb-c1e6c2960cfb",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "41b8c583-ce0a-47a1-9f66-d50dd65ac437",
+            "d0c2056d-ba62-4657-b37d-7d8cf32bf06c"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 5637,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        },
+        {
+          "uuid": "11daed95-9162-4dcf-9757-1f0ccd120676",
+          "title": "Verificacion del flujo de compra",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Agregar tres productos al carrito",
+              "fullTitle": "Verificacion del flujo de compra Agregar tres productos al carrito",
+              "timedOut": null,
+              "duration": 1454,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// Agregar productos\ncy.get('.inventory_item').first().find('button').contains('Add to cart').click();\ncy.get('[data-test=\"add-to-cart-sauce-labs-bike-light\"]').click();\ncy.get('.inventory_item').eq(4).find('button').contains('Add to cart').click();\n//se valida que el carrito contenga los 3 productos y se valida que estemos en la pagina\ncy.get('.shopping_cart_badge').should(\"contain\", \"3\").click();",
+              "err": {},
+              "uuid": "1f9f18e9-fde9-4b1a-afec-fb5c3c5865ac",
+              "parentUUID": "11daed95-9162-4dcf-9757-1f0ccd120676",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Completar proceso de compra y logout",
+              "fullTitle": "Verificacion del flujo de compra Completar proceso de compra y logout",
+              "timedOut": null,
+              "duration": 3189,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.get('.inventory_item').first().find('button').contains('Add to cart').click();\ncy.get('[data-test=\"add-to-cart-sauce-labs-bike-light\"]').click();\ncy.get('.inventory_item').eq(4).find('button').contains('Add to cart').click();\ncy.get('.shopping_cart_badge').should(\"contain\", \"3\").click();\n//Se remueve y se valida el objeto eliminado y se continua con elflujode compra\ncy.get('.cart_item').first().find('button').contains('Remove').click();\ncy.get('[data-test=\"shopping-cart-link\"]').should(\"contain\", \"2\");\n// Ir al carrito\ncy.get('.shopping_cart_link').click();\ncy.url().should('include', '/cart.html');\n// Checkout\ncy.get('#checkout').click();\ncy.url().should('include', '/checkout-step-one.html');\n// Datos de envío del cliente y continuar\ncy.get('#first-name').type(\"Jhon Eduard\");\ncy.get('#last-name').type(\"Agudelo\");\ncy.get('#postal-code').type(\"34rt3\");\ncy.get('#continue').click();\n// Verificar resumen    \ncy.url().should('include', '/checkout-step-two.html');\ncy.get('.summary_info').should('be.visible');\n//Visualizacion de mensaje de exito y logout\ncy.get('[data-test=\"finish\"]').click();\ncy.get(\"h2\").should(\"contain.text\", \"Thank you for your order!\");\n//Validacion de log out\ncy.get(\"#react-burger-menu-btn\").click().should(\"be.visible\");\ncy.get('[data-test=\"logout-sidebar-link\"]').click();",
+              "err": {},
+              "uuid": "9c28d8ca-4c5d-453e-96e4-0785c24c3bfe",
+              "parentUUID": "11daed95-9162-4dcf-9757-1f0ccd120676",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "1f9f18e9-fde9-4b1a-afec-fb5c3c5865ac",
+            "9c28d8ca-4c5d-453e-96e4-0785c24c3bfe"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 4643,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports",
+        "overwrite": false,
+        "html": true,
+        "json": true,
+        "timestamp": "mmddyyyy_HHMMss",
+        "screenshots": true,
+        "embedScreenshots": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}
