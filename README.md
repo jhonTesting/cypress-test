@@ -1,2 +1,0 @@
-# Automatizacion
-Proyecto_de_Automatizacion
